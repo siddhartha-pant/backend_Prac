@@ -12,4 +12,4 @@ module.exports = async (req, res, next) => {
   } catch (err) {
     res.status(400).json({ error: "Invalid token" });
   }
-};
+}; //entire middlwares are made using mongoose commands, not regex
