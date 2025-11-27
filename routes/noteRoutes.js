@@ -5,11 +5,15 @@ const {
   createNote,
   getNotes,
   updateNote,
+  getNoteById,
+  editNoteById,
   deleteNote,
 } = require("../controllers/notesController");
 
 noteRouter.post("/", auth, createNote);
 noteRouter.get("/", auth, getNotes);
+noteRouter.get("/:id", auth, getNoteById);
+noteRouter.patch("/:id", auth, editNoteById);
 noteRouter.put("/:id", auth, updateNote);
 noteRouter.delete("/:id", auth, deleteNote);
 

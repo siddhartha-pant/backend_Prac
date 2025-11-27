@@ -46,3 +46,43 @@ exports.deleteNote = async (req, res) => {
     res.status(500).json({ error: "Failed to delete note" });
   }
 };
+
+exports.getNoteById = async (req, res) => {
+  try {
+    const noteId = req.params.id;
+    const userId = req.user._id;
+    const note = await Note.findOne({ _id: noteId });
+    if (!note) {
+      return res.status(404).json({ message: "Note not found" });
+    }
+    res.status(200).json(note);
+  } catch (error) {
+    console.error("Error fetching note:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+exports.editNoteById = async (req, res) => {
+  try {
+    const noteId = req.params.id;
+    const userId = req.user._id;
+    const updates = req.body;
+
+    const updatedNote = await Note.findOneAndUpdate(
+      { _id: noteId },
+      { $set: updates },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedNote) {
+      return res
+        .status(404)
+        .json({ message: "Note not found or unauthorized" });
+    }
+
+    res.status(200).json(updatedNote);
+  } catch (error) {
+    console.error("Error updating note:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
