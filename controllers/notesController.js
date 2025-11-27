@@ -3,6 +3,7 @@ const Note = require("../models/Note");
 exports.createNote = async (req, res) => {
   try {
     const { title, content } = req.body;
+    console.log(title, content);
     const note = await Note.create({ title, content, user: req.user._id });
     res.status(201).json(note);
   } catch (err) {
