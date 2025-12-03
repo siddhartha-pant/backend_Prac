@@ -16,4 +16,4 @@ module.exports = async (req, res, next) => {
     console.error(err.name, err.message);
     res.status(400).json({ error: "Invalid token" });
   }
-}; //entire middlwares are made using mongoose commands, not regex
+}; //entire middlewares are made using mongoose commands, not regex
